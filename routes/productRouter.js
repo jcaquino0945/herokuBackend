@@ -40,9 +40,26 @@ productRouter.route('/')
     .catch((err) => next(err));    
 });
 
-productRouter.route('/:category')
+productRouter.route('/bestSellers')
 .get((req,res,next) => {
-    Product.find({category:req.params.category})
+    Product.find({}).sort({orders: -1}).limit(3)
+    .then((products) => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(products);
+    }, (err) => next(err))
+    .catch((err) => next(err));
+})
+
+/*
+productRouter.route('/category/:categoryName')
+.get((req,res,next) => {
+    Product.find({category:req.params.categoryName})
+*/
+
+productRouter.route('/category/Tshirt')
+.get((req,res,next) => {
+    Product.find({category:"Tshirt"})
     .then((products) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
