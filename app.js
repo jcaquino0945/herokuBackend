@@ -10,7 +10,7 @@ var session = require('express-session');
 var FileStore = require('session-file-store')(session);
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
+var productRouter = require('./routes/productRouter');
 var app = express();
 
 const mongoose = require('mongoose');
@@ -46,7 +46,7 @@ app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-
+app.use('/products', productRouter);
 
 
 function auth (req, res, next) {
